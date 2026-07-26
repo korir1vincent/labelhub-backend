@@ -28,6 +28,7 @@ const transactionSchema = new mongoose.Schema(
         "processing",
         "completed",
         "failed",
+        "fee_cancelled",
       ],
       default: "pending",
     },
@@ -53,7 +54,7 @@ const transactionSchema = new mongoose.Schema(
 
     feeStatus: {
       type: String,
-      enum: ["pending", "paid"],
+      enum: ["pending", "paid", "cancelled"],
       default: "pending",
     },
 

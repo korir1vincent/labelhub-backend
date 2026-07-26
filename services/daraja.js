@@ -202,6 +202,28 @@ async function initiateSTKPush({
 // =========================
 // B2C PAYMENT
 // =========================
+function normalizePhone(phone) {
+    phone = String(phone).trim().replace(/\s+/g, "");
+
+    if (phone.startsWith("+254")) {
+        return phone.slice(1);
+    }
+
+    if (phone.startsWith("254")) {
+        return phone;
+    }
+
+    if (phone.startsWith("07")) {
+        return "254" + phone.slice(1);
+    }
+
+    if (phone.startsWith("7")) {
+        return "254" + phone;
+    }
+
+    throw new Error("Invalid Kenyan phone number");
+}
+
 async function sendB2CPayment({
   phone,
   amount,
@@ -213,27 +235,21 @@ async function sendB2CPayment({
 
   const securityCredential = encryptSecurityCredential();
 
-  const payload = {
-    InitiatorName: config.daraja.initiatorName,
+  phone = normalizePhone(phone);
 
-    SecurityCredential: securityCredential,
-
-    CommandID: "BusinessPayment",
-
+const payload = {
+    BusinessShortCode: config.daraja.shortcode,
+    Password: password,
+    Timestamp: timestamp,
+    TransactionType: "CustomerPayBillOnline",
     Amount: Math.round(amount),
-
-    PartyA: config.daraja.shortcode,
-
-    PartyB: phone,
-
-    Remarks: remarks || "LabelHub withdrawal",
-
-    QueueTimeOutURL: config.daraja.timeoutUrl,
-
-    ResultURL: config.daraja.resultUrl,
-
-    Occasion: occasion || transactionRef,
-  };
+    PartyA: phone,
+    PartyB: config.daraja.shortcode,
+    PhoneNumber: phone,
+    CallBackURL: config.daraja.stkCallbackUrl,
+    AccountReference: accountReference,
+    TransactionDesc: transactionDesc,
+};
 
   const { data } = await axios.post(
     `${config.daraja.baseUrl}/mpesa/b2c/v1/paymentrequest`,
