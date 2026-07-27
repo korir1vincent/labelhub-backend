@@ -53,7 +53,7 @@ const IMAGES = {
     docType: "a handwritten form",
   },
   receipt: {
-    url: "https://images.unsplash.com/photo-1545941962-1b6654eb8072?auto=format&fit=crop&w=1200&q=80",
+    url: "https://unsplash.com/photos/a-hand-holding-a-piece-of-paper-with-a-bar-code-on-it-fK3R3T5KmIs",
     docType: "a printed receipt",
   },
 };
