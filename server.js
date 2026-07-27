@@ -57,7 +57,12 @@ app.use(
     crossOriginResourcePolicy: { policy: "same-site" },
   }),
 );
-app.use(cors({ origin: config.corsOrigin }));
+app.use(
+  cors({
+    origin: config.corsOrigin,
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: "1mb" })); // small, deliberate cap — no route needs more than this
 // Strip any request keys starting with "$" or containing "." before they can
 // reach a Mongoose query — closes off NoSQL operator injection via req.body/query/params.
