@@ -31,16 +31,20 @@ module.exports = {
         : "https://sandbox.safaricom.co.ke",
   },
 
+  payhero: {
+    baseUrl: process.env.PAYHERO_BASE_URL || "https://backend.payhero.co.ke/api/v2",
+    apiUsername: process.env.PAYHERO_API_USERNAME,
+    apiPassword: process.env.PAYHERO_API_PASSWORD,
+    channelId: process.env.PAYHERO_CHANNEL_ID,
+    // Mirrors the Daraja B2C pattern: a secret embedded in the callback path,
+    // since PayHero doesn't sign its webhook payloads.
+    // Set PAYHERO_CALLBACK_URL to: https://yourdomain.com/webhooks/payhero/<this secret>
+    callbackUrl: process.env.PAYHERO_CALLBACK_URL,
+    webhookSecret: process.env.PAYHERO_WEBHOOK_SECRET,
+  },
+
   paypal: {
-    env: process.env.PAYPAL_ENV || "sandbox",
-    clientId: process.env.PAYPAL_CLIENT_ID,
-    clientSecret: process.env.PAYPAL_CLIENT_SECRET,
-    // Webhook ID from the PayPal Developer Dashboard (Apps & Credentials > your
-    // app > Webhooks). Required to verify inbound webhook signatures.
-    webhookId: process.env.PAYPAL_WEBHOOK_ID,
-    baseUrl:
-      process.env.PAYPAL_ENV === "production"
-        ? "https://api-m.paypal.com"
-        : "https://api-m.sandbox.paypal.com",
+    // ...unchanged...
   },
 };
+

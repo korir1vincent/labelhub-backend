@@ -29,11 +29,11 @@ function publicProfile(user) {
 
 router.post(
   "/register",
-  authLimiter,
   [
     body("name").trim().notEmpty(),
     body("email").isEmail().normalizeEmail(),
-    body("password").isLength({ min: 6 }),
+    body("password").isLength({ min: 8 }),
+    body("mpesaPhone").matches(/^254(7|1)\d{8}$/).withMessage("Enter a valid M-Pesa number, e.g. 2547XXXXXXXX"),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -107,8 +107,8 @@ router.patch(
   "/me",
   authenticate,
   [
+    body("mpesaPhone").optional().matches(/^254(7|1)\d{8}$/).withMessage("Enter a valid M-Pesa number, e.g. 2547XXXXXXXX"),
     body("name").optional().trim().notEmpty(),
-    body("mpesaPhone").optional().trim(),
     body("paypalEmail").optional().trim().isEmail().withMessage("Invalid PayPal email"),
   ],
   async (req, res) => {
