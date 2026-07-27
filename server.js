@@ -6,6 +6,8 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const config = require("./config/config");
+const allowedOrigins = config.corsOrigin;
+
 
 const authRoutes = require("./routes/auth");
 const taskRoutes = require("./routes/tasks");
@@ -59,7 +61,16 @@ app.use(
 );
 app.use(
   cors({
-    origin: config.corsOrigin,
+    origin(origin, callback) {
+      // Allow tools like curl/Postman that don't send an Origin header
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );

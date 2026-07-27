@@ -6,9 +6,9 @@ module.exports = {
   mongoUri: process.env.MONGO_URI,
   jwtSecret: process.env.JWT_SECRET,
   jwtExpiry: process.env.JWT_EXPIRY || "12h",
-corsOrigin: process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(",").map(origin => origin.trim())
-  : ["http://localhost:3000"],
+  corsOrigin: process.env.CORS_ORIGIN
+      ? process.env.CORS_ORIGIN.split(",").map(origin => origin.trim())
+      : ["http://localhost:3000"],
   daraja: {
     env: process.env.DARAJA_ENV || "sandbox",
     consumerKey: process.env.DARAJA_CONSUMER_KEY,
