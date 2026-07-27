@@ -86,7 +86,7 @@ router.get("/available", authenticate, async (req, res) => {
 
   const tasks = await Task.find({ status: "open" })
     .sort({ createdAt: 1 })
-    .limit(50);
+    .limit(200);
   res.json({ tasks });
 });
 
