@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
@@ -64,6 +65,19 @@ app.use(mongoSanitize());
 
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 300 });
 app.use("/api/", limiter);
+
+// Task images are meant to be publicly embeddable in <img> tags from any
+// origin the frontend is hosted on — override the global same-site CORP
+// just for this path, so it keeps working once frontend/backend are on
+// different domains (not just different localhost ports).
+app.use(
+  "/uploads/task-images",
+  (req, res, next) => {
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+    next();
+  },
+  express.static(path.join(__dirname, "uploads", "task-images")),
+);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);

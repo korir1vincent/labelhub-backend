@@ -68,7 +68,7 @@ const REAL_TASKS = [
       "Example: 1. [200,60,265,130] - YIELD - partial (bottom third blocked by street pole). The estimated box still traces where the full sign would be, not just what's visible.",
   },
 
-  // ---- OCR: Easy → Hard ----
+  // ---- OCR: Easy → Medium ----
   {
     type: "ocr",
     title: "OCR Correction: Handwritten Form (Single Field)",
@@ -147,7 +147,6 @@ const REAL_TASKS = [
     title: "EN → SW: Farm Equipment Safety Notice",
     difficulty: "Medium",
     payoutAmount: 90,
-    assetUrl: "",
     prompt:
       "Translate the following safety notice from English to Swahili, preserving technical accuracy:\n\n\"Before operating this equipment, inspect all safety guards and ensure they are properly fastened. Do not remove or bypass any safety mechanism. Wear protective eyewear and gloves at all times during operation. In case of malfunction, switch off the power supply immediately and report the issue to your supervisor before attempting any repair. Keep all bystanders at a safe distance of at least three meters while the equipment is running.\"\n\nProvide a short glossary at the end for any technical terms you translated (e.g. \"safety guard\", \"power supply\").",
     instructions: [
@@ -164,7 +163,6 @@ const REAL_TASKS = [
     title: "EN → SW: Community Health Announcement",
     difficulty: "Easy",
     payoutAmount: 50,
-    assetUrl: "",
     prompt:
       "Translate the following short community health announcement into Swahili:\n\n\"The free health clinic will be open every Tuesday and Thursday from 9am to 3pm. Bring your health card if you have one. Children under five receive priority. For emergencies, call the number posted at the clinic entrance.\"",
     instructions: [
@@ -175,13 +173,29 @@ const REAL_TASKS = [
       "Aim for a tone a community health worker would actually use when posting a notice — clear and direct, not overly formal.",
   },
 
+  // ---- REVIEW ----
+  {
+    type: "review",
+    title: "Quality Review: Machine-Translated Product Descriptions",
+    difficulty: "Medium",
+    payoutAmount: 55,
+    prompt:
+      "Below are three English product descriptions and their Swahili machine translations. For each pair, mark the translation as Accurate, Minor Issues, or Major Issues, and list any specific mistranslated phrases with a corrected version.\n\n1. EN: \"Durable phone case with shock protection.\" SW: \"Kifuniko cha simu chenye ubora na kinga dhidi ya mshtuko.\"\n2. EN: \"Free delivery on orders over KES 2,000.\" SW: \"Utoaji bure kwa maagizo zaidi ya bidhaa 2,000.\"\n3. EN: \"Machine washable, do not tumble dry.\" SW: \"Inaweza kuoshwa kwa mkono, usikaushe kwa mashine.\"",
+    instructions: [
+      "Judge meaning, not just literal word matching",
+      "For each mistranslated phrase, give both what's wrong and a corrected version",
+      "Consider whether a native Swahili speaker would find the phrasing natural, not just technically correct",
+    ],
+    exampleAnswer:
+      "Example: Item 2 — Minor Issues. \"maagizo\" (orders/instructions) is used loosely for \"orders\" here which works, but \"zaidi ya bidhaa 2,000\" reads as \"more than 2,000 products\" rather than \"orders over KES 2,000\" — the currency/amount meaning is lost. Corrected: \"Utoaji bure kwa maagizo ya zaidi ya KES 2,000.\"",
+  },
+
   // ---- SENTIMENT: a real batch, not 3 items ----
   {
     type: "sentiment",
     title: "Sentiment Analysis: Customer Feedback Batch (10 items)",
     difficulty: "Medium",
     payoutAmount: 60,
-    assetUrl: "",
     prompt:
       "Classify each of the following ten customer feedback snippets by sentiment (Positive, Negative, or Neutral) and identify the main aspect being discussed (Price, Quality, Delivery, or Service):\n\n1. \"The delivery took over two weeks and no one responded to my calls.\"\n2. \"Good value for the price, though the packaging could be sturdier.\"\n3. \"Excellent customer service — they resolved my issue within an hour.\"\n4. \"It arrived on time but the product didn't match the description at all.\"\n5. \"Average experience overall, nothing particularly good or bad to report.\"\n6. \"Way too expensive for what you actually get.\"\n7. \"Fast shipping, well packaged, exactly as described. Very happy.\"\n8. \"Support kept transferring me between departments and never solved the issue.\"\n9. \"Quality is decent but I've seen better at a lower price elsewhere.\"\n10. \"Arrived a day early, which was a nice surprise.\"\n\nFor each item, write: [number] - Sentiment: ___ - Aspect: ___ - One-sentence justification.",
     instructions: [

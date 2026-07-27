@@ -1,5 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 const { body, validationResult } = require("express-validator");
 const Task = require("../models/Task");
 const Transaction = require("../models/Transaction");
@@ -10,7 +13,68 @@ const { authenticate, requireRole } = require("../middleware/auth");
 const router = express.Router();
 const CLAIM_WINDOW_MINUTES = 30;
 
+// ---------------------------------------------------------
+// Task image upload (admin only)
+// ---------------------------------------------------------
+
+const TASK_IMAGE_DIR = path.join(__dirname, "..", "uploads", "task-images");
+fs.mkdirSync(TASK_IMAGE_DIR, { recursive: true });
+
+const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+const ALLOWED_IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
+
+const imageStorage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, TASK_IMAGE_DIR),
+  filename: (req, file, cb) => {
+    // Same rule as CV uploads: never trust the client's filename for the
+    // on-disk name — pick from a whitelist ourselves, closing off path
+    // traversal and extension-spoofing in one move.
+    const ext = ALLOWED_IMAGE_EXTENSIONS.includes(path.extname(file.originalname).toLowerCase())
+      ? path.extname(file.originalname).toLowerCase()
+      : ".bin";
+    cb(null, `${req.user._id}_${Date.now()}${ext}`);
+  },
+});
+
+const uploadImage = multer({
+  storage: imageStorage,
+  limits: { fileSize: 8 * 1024 * 1024 }, // 8MB
+  fileFilter: (req, file, cb) => {
+    const extOk = ALLOWED_IMAGE_EXTENSIONS.includes(path.extname(file.originalname).toLowerCase());
+    const mimeOk = ALLOWED_IMAGE_TYPES.includes(file.mimetype);
+    if (!extOk || !mimeOk) {
+      return cb(new Error("Only JPG, PNG, WEBP, or GIF images are accepted"));
+    }
+    cb(null, true);
+  },
+});
+
+// Admin: upload a task image, get back a public URL to use as assetUrl.
+// Deliberately a separate step from task creation — the admin can preview
+// the image before committing to the full task form.
+router.post(
+  "/upload-image",
+  authenticate,
+  requireRole("admin"),
+  (req, res) => {
+    uploadImage.single("image")(req, res, (err) => {
+      if (err) return res.status(400).json({ error: err.message });
+      if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+
+      // PUBLIC_URL should be your backend's externally reachable base URL
+      // (e.g. your ngrok URL in dev, your real domain in prod) — set via env,
+      // since the server itself doesn't know what hostname clients reach it on.
+      const base = process.env.PUBLIC_URL || `${req.protocol}://${req.get("host")}`;
+      const assetUrl = `${base}/uploads/task-images/${req.file.filename}`;
+
+      res.json({ assetUrl });
+    });
+  },
+);
+
+// ---------------------------------------------------------
 // Worker: list open tasks (auto-release expired claims first)
+// ---------------------------------------------------------
 router.get("/available", authenticate, async (req, res) => {
   await Task.updateMany(
     { status: "assigned", claimExpiresAt: { $lt: new Date() } },
