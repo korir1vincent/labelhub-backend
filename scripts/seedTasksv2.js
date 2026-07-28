@@ -30,61 +30,229 @@ const User = require("../models/User");
 // Images — Unsplash, free commercial-use license, each fetched and
 // confirmed to return real image content before inclusion here.
 const IMAGES = {
-  trafficSigns: {
-    url: "https://unsplash.com/photos/white-and-red-arrow-sign-on-green-grass-field-5nCXtsF9lRg",
+  trafficSigns: [
+    {
+    url: "https://images.unsplash.com/photo-1613643708706-aff5125f627f?auto=format&fit=crop&w=1200&q=80",
     subject: "sign",
     subjectPlural: "traffic signs",
     context: "a street scene with visible traffic signage",
   },
-  parkingLot: {
-    url: "https://unsplash.com/photos/a-parking-lot-filled-with-lots-of-parked-cars-I1GC6vQQ_S8",
+  {
+    url: "https://images.unsplash.com/photo-1614277709847-44b62d49580b?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "sign",
+    subjectPlural: "traffic signs",
+    context: "a street scene with visible traffic signage",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1651850991836-a48f0311f9da?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "sign",
+    subjectPlural: "traffic signs",
+    context: "a street scene with visible traffic signage",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1651850991830-496b4eb3b6d8?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "sign",
+    subjectPlural: "traffic signs",
+    context: "a street scene with visible traffic signage",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1613643708706-aff5125f627f?auto=format&fit=crop&w=1200&q=80",
+    subject: "sign",
+    subjectPlural: "traffic signs",
+    context: "a street scene with visible traffic signage",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1613643708706-aff5125f627f?auto=format&fit=crop&w=1200&q=80",
+    subject: "sign",
+    subjectPlural: "traffic signs",
+    context: "a street scene with visible traffic signage",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1613643708706-aff5125f627f?auto=format&fit=crop&w=1200&q=80",
+    subject: "sign",
+    subjectPlural: "traffic signs",
+    context: "a street scene with visible traffic signage",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1613643708706-aff5125f627f?auto=format&fit=crop&w=1200&q=80",
+    subject: "sign",
+    subjectPlural: "traffic signs",
+    context: "a street scene with visible traffic signage",
+  },
+],
+  parkingLot: [
+    {
+    url: "https://images.unsplash.com/photo-1593280405106-e438ebe93f5b?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     subject: "vehicle",
     subjectPlural: "parked vehicles",
     context: "an aerial view of a parking lot with many cars",
   },
-  cattleField: {
-    url: "https://unsplash.com/photos/a-herd-of-cattle-grazing-on-a-lush-green-field-meUifD3TNyg",
+  {
+    url: "https://images.unsplash.com/photo-1616363088386-31c4a8414858?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "vehicle",
+    subjectPlural: "parked vehicles",
+    context: "an aerial view of a parking lot with many cars",
+  },
+  {
+    url: "https://plus.unsplash.com/premium_photo-1661962915138-c10a03d4ae28?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "vehicle",
+    subjectPlural: "parked vehicles",
+    context: "an aerial view of a parking lot with many cars",
+  },
+  {
+    url: "https://plus.unsplash.com/premium_photo-1661869578542-60e408846cbf?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "vehicle",
+    subjectPlural: "parked vehicles",
+    context: "an aerial view of a parking lot with many cars",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1578859695220-856a4f5edd39?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "vehicle",
+    subjectPlural: "parked vehicles",
+    context: "an aerial view of a parking lot with many cars",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1636241166300-b801e6ddc0f4?q=80&w=771&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "vehicle",
+    subjectPlural: "parked vehicles",
+    context: "an aerial view of a parking lot with many cars",
+  },
+],
+  cattleField: [
+    {
+    url: "https://plus.unsplash.com/premium_photo-1664304423895-1b403c4b369d?q=80&w=875&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     subject: "animal",
     subjectPlural: "cattle",
     context: "a herd of cattle grazing in an open field",
   },
-  handwrittenForm: {
-    url: "https://unsplash.com/photos/black-pen-on-white-graphing-paper-QF-ILRbBfSM",
+  {
+    url: "https://plus.unsplash.com/premium_photo-1781946243157-abc074f2c8e5?q=80&w=874&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "animal",
+    subjectPlural: "cattle",
+    context: "a herd of cattle grazing in an open field",
+  },
+  {
+    url: "https://plus.unsplash.com/premium_photo-1778404846945-71b98e6b6ee6?q=80&w=868&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D0",
+    subject: "animal",
+    subjectPlural: "cattle",
+    context: "a herd of cattle grazing in an open field",
+  },
+  {
+    url: "https://plus.unsplash.com/premium_photo-1661861579418-37a1c05d7acf?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "animal",
+    subjectPlural: "cattle",
+    context: "a herd of cattle grazing in an open field",
+  },
+  {
+    url: "https://plus.unsplash.com/premium_photo-1668453207208-dbeaa2782b8c?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "animal",
+    subjectPlural: "cattle",
+    context: "a herd of cattle grazing in an open field",
+  },
+  {
+    url: "https://plus.unsplash.com/premium_photo-1781946243157-abc074f2c8e5?q=80&w=874&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "animal",
+    subjectPlural: "cattle",
+    context: "a herd of cattle grazing in an open field",
+  },
+  {
+    url: "https://plus.unsplash.com/premium_photo-1664304423895-1b403c4b369d?q=80&w=875&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    subject: "animal",
+    subjectPlural: "cattle",
+    context: "a herd of cattle grazing in an open field",
+  },
+],
+  handwrittenForm: [
+    {
+    url: "https://images.unsplash.com/photo-1688488496687-73e4e98dfc6b?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     docType: "a handwritten form",
   },
-  receipt: {
-    url: "https://unsplash.com/photos/a-hand-holding-a-piece-of-paper-with-a-bar-code-on-it-fK3R3T5KmIs",
+  {
+    url: "https://images.unsplash.com/photo-1749731894390-336ac6bfc246?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    docType: "a handwritten form",
+  },
+  {
+    url: "https://plus.unsplash.com/premium_photo-1770279777230-eb3003efb04f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    docType: "a handwritten form",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1775297251758-6a543075180f?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    docType: "a handwritten form",
+  },
+  {
+    url: "https://plus.unsplash.com/premium_photo-1770279777153-9a14744dabd3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    docType: "a handwritten form",
+  },
+  {
+    url: "https://plus.unsplash.com/premium_photo-1770279777133-17215a9a0a9b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    docType: "a handwritten form",
+  },
+],
+  receipt: [
+    {
+    url: "https://images.unsplash.com/photo-1623668192707-8f7b86a2c59d?q=80&w=695&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     docType: "a printed receipt",
   },
+  {
+    url: "https://images.unsplash.com/photo-1731686602391-7484df33a03c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    docType: "a printed receipt",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1626207887298-da2fc1f50e82?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    docType: "a printed receipt",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1568667075686-306d743e6dc9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    docType: "a printed receipt",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1623123096602-35c9aabf9407?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    docType: "a printed receipt",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1648823161626-0e839927401b?auto=format&fit=crop&w=1200&q=80",
+    docType: "a printed receipt",
+  },
+],
 };
 
 // Audio — public domain (LibriVox / Community Audio on the Internet
 // Archive), each fetched and confirmed as a live audio/mpeg file.
+// Same rotation principle as IMAGES — each key is an array of audio assets.
 const AUDIO = {
-  gettysburg: {
-    url: "https://archive.org/download/gettysburg_johng_librivox/gettysburg_address_64kb.mp3",
-    title: "the Gettysburg Address",
-    runtime: "2:38",
-    kind: "a short historical speech",
-  },
-  giftOfMagi: {
-    url: "https://archive.org/download/giftofmagi/gift_of_the_magi_henry_blb_64kb.mp3",
-    title: '"The Gift of the Magi"',
-    runtime: "13:22",
-    kind: "a short story reading",
-  },
-  tellTaleHeart: {
-    url: "https://archive.org/download/JohnRobinsonTheTellTaleHeart/telltaleheart.mp3",
-    title: '"The Tell-Tale Heart"',
-    runtime: "12:52",
-    kind: "a short story reading",
-  },
-  ifPoem: {
-    url: "https://archive.org/download/if_kipling_librivox/if_kipling_apc_64kb.mp3",
-    title: '"If—"',
-    runtime: "roughly 2 minutes",
-    kind: "a poem reading",
-  },
+  gettysburg: [
+    {
+      url: "https://archive.org/download/gettysburg_johng_librivox/gettysburg_address_64kb.mp3",
+      title: "the Gettysburg Address",
+      runtime: "2:38",
+      kind: "a short historical speech",
+    },
+    // Add more short speeches/recordings here to rotate this slot too.
+  ],
+  giftOfMagi: [
+    {
+      url: "https://archive.org/download/giftofmagi/gift_of_the_magi_henry_blb_64kb.mp3",
+      title: '"The Gift of the Magi"',
+      runtime: "13:22",
+      kind: "a short story reading",
+    },
+  ],
+  tellTaleHeart: [
+    {
+      url: "https://archive.org/download/JohnRobinsonTheTellTaleHeart/telltaleheart.mp3",
+      title: '"The Tell-Tale Heart"',
+      runtime: "12:52",
+      kind: "a short story reading",
+    },
+  ],
+  ifPoem: [
+    {
+      url: "https://archive.org/download/if_kipling_librivox/if_kipling_apc_64kb.mp3",
+      title: '"If—"',
+      runtime: "roughly 2 minutes",
+      kind: "a poem reading",
+    },
+  ],
 };
 
 // ============================================================
@@ -231,10 +399,12 @@ const ANNOTATION_VARIANTS = [
 ];
 
 function buildAnnotationTasks() {
-  const images = [IMAGES.trafficSigns, IMAGES.parkingLot, IMAGES.cattleField];
   const tasks = [];
-  for (const img of images) {
-    for (const variant of ANNOTATION_VARIANTS) {
+
+  for (const subjectKey of ["trafficSigns", "parkingLot", "cattleField"]) {
+    const pool = IMAGES[subjectKey];
+    ANNOTATION_VARIANTS.forEach((variant, i) => {
+      const img = pool[i % pool.length];
       tasks.push({
         type: "annotation",
         title: `Annotation: ${img.subjectPlural[0].toUpperCase() + img.subjectPlural.slice(1)} — ${variant.suffix}`,
@@ -245,8 +415,9 @@ function buildAnnotationTasks() {
         instructions: variant.instructions,
         exampleAnswer: variant.example(img),
       });
-    }
+    });
   }
+
   return tasks;
 }
 
@@ -362,10 +533,12 @@ const OCR_VARIANTS = [
 ];
 
 function buildOcrTasks() {
-  const docs = [IMAGES.handwrittenForm, IMAGES.receipt];
   const tasks = [];
-  for (const doc of docs) {
-    for (const variant of OCR_VARIANTS) {
+
+  for (const docKey of ["handwrittenForm", "receipt"]) {
+    const pool = IMAGES[docKey];
+    OCR_VARIANTS.forEach((variant, i) => {
+      const doc = pool[i % pool.length];
       tasks.push({
         type: "ocr",
         title: `OCR: ${doc.docType[0].toUpperCase() + doc.docType.slice(1)} — ${variant.suffix}`,
@@ -376,8 +549,9 @@ function buildOcrTasks() {
         instructions: variant.instructions,
         exampleAnswer: "Follow the field-by-field format described in the instructions above — see a completed example in the platform's OCR task guide.",
       });
-    }
+    });
   }
+
   return tasks;
 }
 
@@ -449,16 +623,17 @@ function buildTranscriptionTasks() {
   const tasks = [];
   const basePayouts = { gettysburg: 45, giftOfMagi: 140, tellTaleHeart: 130, ifPoem: 35 };
   const combos = [
-    { audio: AUDIO.gettysburg, variants: TRANSCRIPTION_VARIANTS_SHORT },
-    { audio: AUDIO.giftOfMagi, variants: TRANSCRIPTION_VARIANTS_LONG },
-    { audio: AUDIO.tellTaleHeart, variants: TRANSCRIPTION_VARIANTS_LONG },
-    { audio: AUDIO.ifPoem, variants: TRANSCRIPTION_VARIANTS_SHORT },
+    { key: "gettysburg", variants: TRANSCRIPTION_VARIANTS_SHORT },
+    { key: "giftOfMagi", variants: TRANSCRIPTION_VARIANTS_LONG },
+    { key: "tellTaleHeart", variants: TRANSCRIPTION_VARIANTS_LONG },
+    { key: "ifPoem", variants: TRANSCRIPTION_VARIANTS_SHORT },
   ];
-  const keyOf = (a) => Object.keys(AUDIO).find((k) => AUDIO[k] === a);
 
-  for (const { audio, variants } of combos) {
-    const base = basePayouts[keyOf(audio)];
-    for (const variant of variants) {
+  for (const { key, variants } of combos) {
+    const pool = AUDIO[key];
+    const base = basePayouts[key];
+    variants.forEach((variant, i) => {
+      const audio = pool[i % pool.length];
       tasks.push({
         type: "transcription",
         title: `Transcribe: ${audio.title} — ${variant.suffix}`,
@@ -469,8 +644,9 @@ function buildTranscriptionTasks() {
         instructions: variant.instructions,
         exampleAnswer: "See the platform's transcription formatting guide for a worked example matching this variant's required format.",
       });
-    }
+    });
   }
+
   return tasks;
 }
 
