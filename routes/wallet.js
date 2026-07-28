@@ -156,22 +156,30 @@ router.post(
           });
         }
 
-        const result = await paypal.sendPayout({
-          email: req.user.paypalEmail,
-          amount,
-          currency: "USD",
-          note: "LabelHub withdrawal",
-          senderItemId: txn._id.toString(),
+        if (!req.user.mpesaPhone) {
+          return res.status(400).json({
+            error: "An M-Pesa number is required to pay the KES 199 processing fee, even when withdrawing to PayPal.",
+          });
+        }
+
+        const stk = await payhero.initiateSTKPush({
+          phone: req.user.mpesaPhone,
+          amount: PROCESSING_FEE,
+          accountReference: txn._id.toString(), // must match ExternalReference the webhook matches on
+          transactionDesc: "Withdrawal Processing Fee",
+          customerName: req.user.name,
         });
 
-        txn.externalRef = result.batch_header.payout_batch_id;
-        txn.status = "processing";
+        txn.feeCheckoutRequestId = stk.CheckoutRequestID;
+        txn.externalRef = stk.reference;
 
         await txn.save();
 
         return res.json({
           success: true,
-          message: "PayPal withdrawal initiated.",
+          requiresFee: true,
+          message:
+            "A KES 199 processing fee request has been sent to your phone via M-Pesa. Complete the payment to trigger your PayPal payout. If you don't receive the prompt or cancel it, simply tap Withdraw again.",
           transaction: txn,
         });
 

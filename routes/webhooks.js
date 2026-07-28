@@ -1,8 +1,8 @@
-
 const express = require("express");
 const crypto = require("crypto");
 const Transaction = require("../models/Transaction");
 const Notification = require("../models/Notification");
+const User = require("../models/User");
 const config = require("../config/config");
 const paypal = require("../services/paypal");
 const daraja = require("../services/daraja");
@@ -80,16 +80,40 @@ router.post("/payhero/:secret", express.json(), async (req, res) => {
     txn.feePaidAt = new Date();
     await txn.save();
 
-    // Fee confirmed — automatically send the actual withdrawal via Daraja B2C
-    const b2cResult = await daraja.sendB2CPayment({
-      phone: txn.phone || txn.phoneNumber,
-      amount: txn.amount,
-      remarks: "LabelHub withdrawal",
-      transactionRef: txn._id.toString(),
-    });
+    // Fee confirmed — send the actual payout via whichever method this
+    // withdrawal was for.
+    if (txn.method === "mpesa") {
+      const b2cResult = await daraja.sendB2CPayment({
+        phone: txn.phone || txn.phoneNumber,
+        amount: txn.amount,
+        remarks: "LabelHub withdrawal",
+        transactionRef: txn._id.toString(),
+      });
 
-    txn.externalRef = b2cResult.ConversationID;
-    await txn.save();
+      txn.externalRef = b2cResult.ConversationID;
+      await txn.save();
+    } else if (txn.method === "paypal") {
+      const worker = await User.findById(txn.userId);
+
+      if (!worker || !worker.paypalEmail) {
+        txn.status = "failed";
+        txn.failureReason = "No PayPal email on file at time of payout.";
+        await txn.save();
+        await notifyWithdrawalResult(txn);
+        return res.sendStatus(200);
+      }
+
+      const payoutResult = await paypal.sendPayout({
+        email: worker.paypalEmail,
+        amount: txn.amount,
+        currency: "USD",
+        note: "LabelHub withdrawal",
+        senderItemId: txn._id.toString(),
+      });
+
+      txn.externalRef = payoutResult.batch_header.payout_batch_id;
+      await txn.save();
+    }
 
     res.sendStatus(200);
   } catch (err) {

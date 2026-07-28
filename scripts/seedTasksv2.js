@@ -31,25 +31,25 @@ const User = require("../models/User");
 // confirmed to return real image content before inclusion here.
 const IMAGES = {
   trafficSigns: {
-    url: "https://images.unsplash.com/photo-1566241440091-ec10de8db2e1?auto=format&fit=crop&w=1200&q=80",
+    url: "https://unsplash.com/photos/white-and-red-arrow-sign-on-green-grass-field-5nCXtsF9lRg",
     subject: "sign",
     subjectPlural: "traffic signs",
     context: "a street scene with visible traffic signage",
   },
   parkingLot: {
-    url: "https://images.unsplash.com/photo-1772440223098-cc23f6f01209?auto=format&fit=crop&w=1200&q=80",
+    url: "https://unsplash.com/photos/a-parking-lot-filled-with-lots-of-parked-cars-I1GC6vQQ_S8",
     subject: "vehicle",
     subjectPlural: "parked vehicles",
     context: "an aerial view of a parking lot with many cars",
   },
   cattleField: {
-    url: "https://images.unsplash.com/photo-1642285777960-b4bb6c62116f?auto=format&fit=crop&w=1200&q=80",
+    url: "https://unsplash.com/photos/a-herd-of-cattle-grazing-on-a-lush-green-field-meUifD3TNyg",
     subject: "animal",
     subjectPlural: "cattle",
     context: "a herd of cattle grazing in an open field",
   },
   handwrittenForm: {
-    url: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+    url: "https://unsplash.com/photos/black-pen-on-white-graphing-paper-QF-ILRbBfSM",
     docType: "a handwritten form",
   },
   receipt: {
