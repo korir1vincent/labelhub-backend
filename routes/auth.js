@@ -62,8 +62,11 @@ router.post(
 
       res.status(201).json({ token, user: publicProfile(user) });
     } catch (err) {
-      res.status(500).json({ error: "Registration failed" });
-    }
+        console.error("Registration error:", err);
+        res.status(500).json({
+          error: err.message,
+        });
+      }
   },
 );
 
