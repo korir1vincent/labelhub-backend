@@ -30,9 +30,9 @@ function publicProfile(user) {
 router.post(
   "/register",
   [
-    body("name").trim().notEmpty(),
-    body("email").isEmail().normalizeEmail(),
-    body("password").isLength({ min: 8 }),
+    body("name").trim().notEmpty().withMessage("Name is required"),
+    body("email").isEmail().withMessage("Enter a valid email address").normalizeEmail(),
+    body("password").isLength({ min: 8 }).withMessage("Password must be at least 8 characters"),
     body("mpesaPhone").matches(/^254(7|1)\d{8}$/).withMessage("Enter a valid M-Pesa number, e.g. 2547XXXXXXXX"),
   ],
   async (req, res) => {
